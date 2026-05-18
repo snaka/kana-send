@@ -1,0 +1,35 @@
+name: kana-send
+options:
+  bundleIdPrefix: com.snaka
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  kana-send:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+    info:
+      path: build/Info.plist
+      properties:
+        LSUIElement: true
+        LSMinimumSystemVersion: "14.0"
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        NSHumanReadableCopyright: "Copyright © 2026 snaka. MIT License."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.snaka.kana-send
+        PRODUCT_NAME: kana-send
+        ENABLE_HARDENED_RUNTIME: NO
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Manual
+        COMBINE_HIDPI_IMAGES: YES
