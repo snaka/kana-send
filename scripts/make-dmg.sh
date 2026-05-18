@@ -23,6 +23,15 @@ DMG_PATH="$DIST_DIR/${DMG_BASENAME}.dmg"
 echo "==> Regenerating Xcode project"
 xcodegen generate >/dev/null
 
+# xcodegen emits objectVersion = 77 when Xcode 26+ is installed, which older
+# Xcode versions (e.g. on GitHub-hosted runners) refuse to open. Force an
+# older format that every supported Xcode can read.
+PBXPROJ="$PROJECT/project.pbxproj"
+if grep -q "objectVersion = 77;" "$PBXPROJ"; then
+    sed -i.bak 's/objectVersion = 77;/objectVersion = 56;/' "$PBXPROJ"
+    rm -f "${PBXPROJ}.bak"
+fi
+
 echo "==> Building $CONFIG"
 rm -rf "$BUILD_DIR"
 xcodebuild \
